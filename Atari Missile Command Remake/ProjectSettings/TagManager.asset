@@ -41,12 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Buildings
-    uniqueID: 520464075
-    locked: 0
   - name: Platform
     uniqueID: 2343276597
     locked: 0
+  - name: PlayerMissiles
+    uniqueID: 2615148037
+    locked: 0
+  - name: EnemyMissiles
+    uniqueID: 749207513
+    locked: 0
   - name: Target
     uniqueID: 3528003009
+    locked: 0
+  - name: Buildings
+    uniqueID: 520464075
     locked: 0
