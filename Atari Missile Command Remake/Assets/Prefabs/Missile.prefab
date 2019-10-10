@@ -93,8 +93,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3511b10250c26fa4ab5533c1be2e7e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPrimed: 1
-  speed: 0
+  target: {x: 0, y: 0, z: 0}
+  spawnPos: {x: 0, y: 0}
+  explosionAnim: {fileID: 8871146244662533560, guid: 8d5ad26fad4bbcf4c84ebc6692fed256,
+    type: 3}
+  speed: 15
+  explosionTime: 2
+  explosionPos: {fileID: 1831453542692774292}
 --- !u!96 &4259007106137756365
 TrailRenderer:
   serializedVersion: 2
@@ -130,8 +135,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1679819259
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Time: 1
   m_Parameters:

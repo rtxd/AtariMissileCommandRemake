@@ -7,8 +7,10 @@ public class MissileScript : MonoBehaviour
 
     public Vector3 target;
     public Vector2 spawnPos;
-
+    public GameObject explosionAnim;
     public float speed;
+    public float explosionTime;
+    public Transform explosionPos;
 
     // Start is called before the first frame update
     void Start()
@@ -21,18 +23,13 @@ public class MissileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fireMissile();
-        if(transform.position == target)
-        {
-            explode();
-        }
-    }
-
-    void fireMissile()
-    {
         //move the missile
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
         rotateToFaceMouse();
+        if (transform.position == target)
+        {
+            explode();
+        }
     }
 
     /// <summary>
@@ -51,6 +48,13 @@ public class MissileScript : MonoBehaviour
     /// </summary>
     void explode()
     {
+        
+        Debug.Log("Play Explosion Animation");
+        explosionAnim.GetComponent<ExplosionScript>().explosionTime = explosionTime;
+        explosionAnim.GetComponent<ExplosionScript>().spawnPos = transform.position;
+        Instantiate(explosionAnim, new Vector3(0,0,0), Quaternion.identity);
+        
+        
         Destroy(this.gameObject);
     }
 }
