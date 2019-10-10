@@ -7,6 +7,7 @@ public class MissileControllerScript : MonoBehaviour
     public GameObject missile;
     public Vector2 spawnPos;
     public float speed;
+    public KeyCode fireButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,16 +17,13 @@ public class MissileControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        
+        if (Input.GetKeyDown(fireButton))
         {
-            
-            Instantiate(missile);
             missile.GetComponent<MissileScript>().spawnPos = spawnPos;
             missile.GetComponent<MissileScript>().target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             missile.GetComponent<MissileScript>().speed = speed;
-
-
-
+            Instantiate(missile);
         }
     }
 }
