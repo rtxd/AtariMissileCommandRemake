@@ -10,6 +10,8 @@ public class MissileControllerScript : MonoBehaviour
     public KeyCode fireButton;
     List<GameObject> ammo;
     public GameObject bullet;
+    public float[] bulletSpawnPointsY;
+    public float[] bulletSpawnPointsX;
 
 
     // Start is called before the first frame update
@@ -19,8 +21,9 @@ public class MissileControllerScript : MonoBehaviour
         ammo = new List<GameObject>();
         for(int i = 0; i < 10; i++)
         {
-            Instantiate(bullet);
-            ammo.Add(bullet);
+            //bullet.GetComponent<BulletScript>.spawnPos = new Vector3
+            //Instantiate(bullet);
+            //ammo.Add(bullet);
         }
 
 
