@@ -21,7 +21,7 @@ public class MissileControllerScript : MonoBehaviour
         if (Input.GetKeyDown(fireButton))
         {
             missile.GetComponent<MissileScript>().spawnPos = spawnPos;
-            missile.GetComponent<MissileScript>().target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            missile.GetComponent<MissileScript>().target = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
             missile.GetComponent<MissileScript>().speed = speed;
             Instantiate(missile);
         }
