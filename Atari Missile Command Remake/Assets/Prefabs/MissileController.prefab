@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5619562148029968102}
   - component: {fileID: 1573831403383692455}
   m_Layer: 0
-  m_Name: MissileController 1
+  m_Name: MissileController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,4 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missile: {fileID: 4259007106137756364, guid: 82bbdabe4c98d9542b517a4bc3f0fab6, type: 3}
   spawnPos: {x: 6.022, y: -3.032}
-  speed: 15
+  speed: 20
+  fireButton: 0

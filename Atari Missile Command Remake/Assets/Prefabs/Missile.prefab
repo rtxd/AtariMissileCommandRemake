@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4259007106137756365}
   m_Layer: 0
   m_Name: Missile
-  m_TagString: Untagged
+  m_TagString: playerMissile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,15 +93,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3511b10250c26fa4ab5533c1be2e7e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {x: 0, y: 0, z: 0}
   spawnPos: {x: 0, y: 0}
   explosionAnim: {fileID: 8871146244662533560, guid: 8d5ad26fad4bbcf4c84ebc6692fed256,
     type: 3}
-  speed: 15
-  explosionTime: 2
+  locationMarker: {fileID: 2606949950450065502, guid: e74443bf58fac624c9fbb1a4cab7bd0d,
+    type: 3}
+  speed: 0
+  explosionTime: 1.2
   explosionPos: {fileID: 1831453542692774292}
   explosionAudio: {fileID: 8300000, guid: d7a7011492887ac44ad09f7e4c42ad9d, type: 3}
-  audioSource: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
 --- !u!96 &4259007106137756365
 TrailRenderer:
   serializedVersion: 2
