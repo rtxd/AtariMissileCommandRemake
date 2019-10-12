@@ -5,18 +5,25 @@ using UnityEngine;
 public class MissileScript : MonoBehaviour
 {
 
-    public Vector3 target;
+    
     public Vector2 spawnPos;
     public GameObject explosionAnim;
+    public GameObject locationMarker;
     public float speed;
     public float explosionTime;
     public Transform explosionPos;
     public AudioClip explosionAudio;
+    Vector3 direction;
+    public Vector3 target;
+    bool markerPlaced = false;
+    GameObject thisLocationMarker;
+
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = spawnPos;
+        direction = (target - transform.position).normalized;
     }
 
     
@@ -24,13 +31,24 @@ public class MissileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //move the missile
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         rotateToFaceMouse();
-        if (transform.position == target)
+        //move the missile
+        
+        if(Vector3.Distance(target, transform.position) <= 0.2)
         {
+            Destroy(thisLocationMarker);
             explode();
         }
+        else
+        {
+            transform.position = transform.position + (direction * (speed * Time.deltaTime));
+            if (!markerPlaced)
+                placeLocationMarker(target.x, target.y);
+        }
+        
+        //transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        
     }
 
     /// <summary>
@@ -56,5 +74,11 @@ public class MissileScript : MonoBehaviour
         
         
         Destroy(this.gameObject);
+    }
+
+    void placeLocationMarker(float targetX, float targetY)
+    {
+        thisLocationMarker = Instantiate(locationMarker, new Vector3(targetX, targetY, 0), Quaternion.identity);
+        markerPlaced = true;
     }
 }
