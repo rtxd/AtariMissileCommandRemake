@@ -15,7 +15,6 @@ public class ExplosionScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("I'm alive");
         Destroy(gameObject, explosionTime);
     }
 }

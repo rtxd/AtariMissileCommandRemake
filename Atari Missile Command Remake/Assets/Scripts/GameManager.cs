@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i = 0; i < 10; i++)
         {
-            Instantiate(EnemyMissile, new Vector3( (Random.Range(7, -7)), (Random.Range(13, 5)), 0), Quaternion.identity);
+            Instantiate(EnemyMissile, new Vector3( (Random.Range(7, -7)), (Random.Range(20, 5)), 0), Quaternion.identity);
         }
     }
 }
