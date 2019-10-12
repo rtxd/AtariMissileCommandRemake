@@ -6,7 +6,7 @@ public class EnemyMissileScript : MonoBehaviour
 {
     //Direction of missile
     Vector3 target;
-    Vector3 startPosition;
+    Vector2 startPosition;
     //Change this to dictate speed missile fires at
     float timeToReachTarget;
     public float explosionTime;
@@ -19,7 +19,7 @@ public class EnemyMissileScript : MonoBehaviour
     void Start()
     {
         //Choose a random direction to aim at the platform
-        target = new Vector3(Random.Range(-5.0f, 5.0f), -6.0f, 0.0f);
+        target = new Vector2(Random.Range(-5.0f, 5.0f), -6.0f);
         //Set the start position to the objects current position
         startPosition = transform.position;
         timeToReachTarget = Random.Range(8, 16);
@@ -38,7 +38,7 @@ public class EnemyMissileScript : MonoBehaviour
         //Time fraction for lerp
         t += Time.deltaTime / timeToReachTarget;
         //Shoot missile
-        transform.position = Vector3.Lerp(startPosition, target, t);
+        transform.position = Vector2.Lerp(startPosition, target, t);
     }
 
     //Rotate sprite so it's facing the direction it's aiming
@@ -55,12 +55,23 @@ public class EnemyMissileScript : MonoBehaviour
     /// </summary>
     void explode()
     {
-        AudioSource.PlayClipAtPoint(explosionAudio, new Vector3(0, 0, 0));
+        AudioSource.PlayClipAtPoint(explosionAudio, new Vector2(0, 0));
         explosionAnim.GetComponent<ExplosionScript>().explosionTime = explosionTime;
         explosionAnim.GetComponent<ExplosionScript>().spawnPos = transform.position;
-        Instantiate(explosionAnim, new Vector3(0, 0, 0), Quaternion.identity);
+        Instantiate(explosionAnim, new Vector2(0, 0), Quaternion.identity);
 
 
         Destroy(this.gameObject);
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.tag == "explosion")
+        {
+            explode();
+        }
+        
+        
+    }
+
 }
