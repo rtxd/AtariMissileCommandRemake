@@ -100,6 +100,8 @@ MonoBehaviour:
   speed: 15
   explosionTime: 2
   explosionPos: {fileID: 1831453542692774292}
+  explosionAudio: {fileID: 8300000, guid: d7a7011492887ac44ad09f7e4c42ad9d, type: 3}
+  audioSource: {fileID: 0}
 --- !u!96 &4259007106137756365
 TrailRenderer:
   serializedVersion: 2

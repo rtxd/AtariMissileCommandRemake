@@ -11,6 +11,7 @@ public class MissileScript : MonoBehaviour
     public float speed;
     public float explosionTime;
     public Transform explosionPos;
+    public AudioClip explosionAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -48,8 +49,7 @@ public class MissileScript : MonoBehaviour
     /// </summary>
     void explode()
     {
-        
-        Debug.Log("Play Explosion Animation");
+        AudioSource.PlayClipAtPoint(explosionAudio, new Vector3(0, 0, 0));
         explosionAnim.GetComponent<ExplosionScript>().explosionTime = explosionTime;
         explosionAnim.GetComponent<ExplosionScript>().spawnPos = transform.position;
         Instantiate(explosionAnim, new Vector3(0,0,0), Quaternion.identity);
