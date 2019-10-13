@@ -15,10 +15,13 @@ public class EnemyMissileScript : MonoBehaviour
     public GameObject explosionAnim;
     public GameObject gameManager;
     float t;
+    public bool mainMenu;
+    Vector3 direction;
 
     // Start is called before the first frame update
     void Start()
     {
+        direction = (target - transform.position).normalized;
         //Choose a random city to target
         var selectedCity = Random.Range(0, 6);
         target = gameManager.GetComponent<GameManagerScript>().citySpawnPoints[selectedCity];
@@ -36,26 +39,45 @@ public class EnemyMissileScript : MonoBehaviour
         //When the missile hits the city explode
         if (Vector3.Distance(target, transform.position) <= 0.2)
         {
-            explode();
+            //if(!mainMenu)
+                explode();
         }
     }
 
     //Move
     void move()
     {
-        //Time fraction for lerp
-        t += Time.deltaTime / timeToReachTarget;
-        //Shoot missile
-        transform.position = Vector2.Lerp(startPosition, target, t);
+        //if(!mainMenu)
+        //{
+            //Time fraction for lerp
+            t += Time.deltaTime / timeToReachTarget;
+            //Shoot missile
+            transform.position = Vector2.Lerp(startPosition, target, t);
+        //}
+        //else
+        //{
+        //    transform.position = transform.position + (direction * (2 * Time.deltaTime));
+        //}
+        
     }
 
     //Rotate sprite so it's facing the direction it's aiming
     void rotate()
     {
-        Vector3 vectorToTarget = target - transform.position;
-        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, 1);
+        //if(!mainMenu)
+        //{
+            Vector3 vectorToTarget = target - transform.position;
+            float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90;
+            Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, 1);
+        //}
+        //else
+        //{
+        //    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        //    Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        //    transform.rotation = Quaternion.Slerp(transform.rotation, q, 1);
+        //}
+        
     }
 
     /// <summary>

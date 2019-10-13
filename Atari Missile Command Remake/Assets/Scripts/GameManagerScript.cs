@@ -11,12 +11,15 @@ public class GameManagerScript : MonoBehaviour
     public GameObject WaveOneSprite;
     public GameObject WaveTwoSprite;
     public GameObject WaveThreeSprite;
+    public bool mainMenu;
+
     public AudioClip GameOverAudio;
     public AudioClip BackgroundMusic;
     public AudioClip GameBootupAudio;
     public AudioClip WaveOneAudio;
     public AudioClip WaveTwoAudio;
     public AudioClip WaveThreeAudio;
+    
 
     public float musicVolume;
     public Vector3[] citySpawnPoints;
@@ -85,6 +88,11 @@ public class GameManagerScript : MonoBehaviour
     {
         for(int i = 0; i < 10; i++)
         {
+            if(mainMenu)
+            {
+                EnemyMissile.GetComponent<EnemyMissileScript>().mainMenu = true;
+            }
+            
             Instantiate(EnemyMissile, new Vector3( (Random.Range(7, -7)), (Random.Range(20, 5)), 0), Quaternion.identity);
         }
     }
@@ -97,7 +105,12 @@ public class GameManagerScript : MonoBehaviour
         Cities = new List<GameObject>();
         for (int i = 0; i < 6; i++)
         {
+            
             var newCity = Instantiate(City, citySpawnPoints[i], Quaternion.identity);
+            if (mainMenu)
+            {
+                newCity.GetComponent<CityScript>().mainMenu = true;
+            }
             Cities.Add(newCity);
         }
     }

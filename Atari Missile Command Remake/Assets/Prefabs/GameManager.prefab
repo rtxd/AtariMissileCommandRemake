@@ -48,8 +48,15 @@ MonoBehaviour:
   City: {fileID: 134791270591254889, guid: 11ac45aa75144934291e2c7ff72677d1, type: 3}
   GameOverSprite: {fileID: 6916142232196332393, guid: bf86adcd6a49dc247b57df0b8a3172e2,
     type: 3}
+  WaveOneSprite: {fileID: 0}
+  WaveTwoSprite: {fileID: 0}
+  WaveThreeSprite: {fileID: 0}
   GameOverAudio: {fileID: 8300000, guid: a42f750de7b7bda49960d922a65e730d, type: 3}
   BackgroundMusic: {fileID: 8300000, guid: 6e7878e77c3c5fd429e702677e5911bb, type: 3}
+  GameBootupAudio: {fileID: 8300000, guid: 614521c3c596abe4a9794c151f1a969f, type: 3}
+  WaveOneAudio: {fileID: 0}
+  WaveTwoAudio: {fileID: 0}
+  WaveThreeAudio: {fileID: 0}
   musicVolume: 0.1
   citySpawnPoints:
   - {x: -3.88, y: -3.43, z: 0}
