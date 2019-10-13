@@ -8,6 +8,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject EnemyMissile;
     public GameObject City;
     public Vector3[] citySpawnPoints;
+    List<GameObject> Cities;
 
     /// <summary>
     /// Set up the game here
@@ -44,9 +45,10 @@ public class GameManagerScript : MonoBehaviour
     /// </summary>
     void spawnCities()
     {
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
-            Instantiate(City, citySpawnPoints[i], Quaternion.identity);
+            var newCity = Instantiate(City, citySpawnPoints[i], Quaternion.identity);
+
         }
     }
 }

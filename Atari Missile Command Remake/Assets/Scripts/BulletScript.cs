@@ -10,12 +10,18 @@ public class BulletScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //transform.position = spawnPos;
+        transform.position = spawnPos;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void destroyBullet()
+    {
+        Debug.Log("DESTROY BULLET");
+        Destroy(this.gameObject);
     }
 }
