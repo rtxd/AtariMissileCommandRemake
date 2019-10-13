@@ -19,6 +19,7 @@ public class GameManagerScript : MonoBehaviour
         spawnCities();
         spawnWave();
         
+
     }
 
     // Update is called once per frame
@@ -27,6 +28,17 @@ public class GameManagerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             spawnWave();
 
+        //foreach(GameObject city in Cities.ToList())
+        for(int i = 0; i < (Cities.Count-1); i++)
+        {
+            if(Cities[i] == null)
+            {
+                Cities.Remove(Cities[i]);
+            }
+        }
+
+        if (Cities.Count == 0)
+            GameOver();
     }
 
     /// <summary>
@@ -45,10 +57,16 @@ public class GameManagerScript : MonoBehaviour
     /// </summary>
     void spawnCities()
     {
+        Cities = new List<GameObject>();
         for (int i = 0; i < 6; i++)
         {
             var newCity = Instantiate(City, citySpawnPoints[i], Quaternion.identity);
-
+            Cities.Add(newCity);
         }
+    }
+
+    void GameOver()
+    {
+        Debug.Log("Game Over!!");
     }
 }

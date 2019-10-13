@@ -23,7 +23,7 @@ public class CityScript : MonoBehaviour
         //Maybe set a boolean to swap animation/image
         if (col.tag == "enemyMissile")
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 1);
         }
     }
 }
