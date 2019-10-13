@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class GameManagerScript : MonoBehaviour
     GameObject MissileControllerCenter;
     public GameObject EnemyMissile;
     public GameObject City;
+    public GameObject YouWinSprite;
     public GameObject GameOverSprite;
     public GameObject WaveOneSprite;
     public GameObject WaveTwoSprite;
     public GameObject WaveThreeSprite;
+
     public bool mainMenu;
 
     public AudioClip GameOverAudio;
@@ -23,6 +26,9 @@ public class GameManagerScript : MonoBehaviour
     public AudioClip WaveTwoAudio;
     public AudioClip WaveThreeAudio;
 
+    public AudioClip YouWinAudio;
+    public AudioClip GameWinAudio;
+
     [SerializeField]
     float musicVolume = 0;
     [SerializeField]
@@ -30,6 +36,7 @@ public class GameManagerScript : MonoBehaviour
     public Vector3[] citySpawnPoints;
     List<GameObject> Cities;
     bool gameOver = false;
+    bool gameWon = false;
     
 
     /// <summary>
@@ -42,9 +49,12 @@ public class GameManagerScript : MonoBehaviour
         MissileControllerCenter = GameObject.Find("MissileControllerCenter");
         spawnCities();
         //Setup the city
-        StartCoroutine(StartWaveOne());
-        //Invoke("StartWaveTwo", 5);
-        //Invoke("StartWaveThree", 5);
+        if(!mainMenu)
+            StartCoroutine(StartWaveOne());
+        else
+        {
+            spawnWave();
+        }
         //Play background music
         AudioSource.PlayClipAtPoint(BackgroundMusic, new Vector3(0, 0, -18), musicVolume);
         
@@ -74,6 +84,12 @@ public class GameManagerScript : MonoBehaviour
             }
         }
 
+        if (gameWon == true)
+        {
+            StartCoroutine(winGame());
+            gameWon = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             Reset();
@@ -95,6 +111,7 @@ public class GameManagerScript : MonoBehaviour
 
     IEnumerator StartWaveTwo()
     {
+        Reset();
         AudioSource.PlayClipAtPoint(WaveTwoAudio, new Vector3(0, 0, -18), voiceVolume);
         var waveTwoSprite = Instantiate(WaveTwoSprite);
         yield return new WaitForSeconds(2);
@@ -106,17 +123,27 @@ public class GameManagerScript : MonoBehaviour
         spawnWave();
         yield return new WaitForSeconds(5);
         spawnWave();
-        yield return new WaitForSeconds(10);
-        StartCoroutine(StartWaveTwo());
+        yield return new WaitForSeconds(13);
+        StartCoroutine(StartWaveThree());
     }
 
     IEnumerator StartWaveThree()
     {
+        Reset();
         AudioSource.PlayClipAtPoint(WaveThreeAudio, new Vector3(0, 0, -18), voiceVolume);
         var waveThreeSprite = Instantiate(WaveThreeSprite);
         yield return new WaitForSeconds(2);
         Destroy(waveThreeSprite);
         spawnWave();
+        spawnWave();
+        yield return new WaitForSeconds(8);
+        spawnWave();
+        yield return new WaitForSeconds(5);
+        spawnWave();
+        yield return new WaitForSeconds(5);
+        spawnWave();
+        yield return new WaitForSeconds(13);
+        gameWon = true;
     }
 
     /// <summary>
@@ -175,5 +202,15 @@ public class GameManagerScript : MonoBehaviour
         }
 
         spawnCities();
+    }
+
+    IEnumerator winGame()
+    {
+        var youWinSprite = Instantiate(YouWinSprite);
+        AudioSource.PlayClipAtPoint(GameWinAudio, new Vector3(0, 0, -18), voiceVolume);
+        yield return new WaitForSeconds(1);
+        AudioSource.PlayClipAtPoint(YouWinAudio, new Vector3(0, 0, -18), voiceVolume);
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }
