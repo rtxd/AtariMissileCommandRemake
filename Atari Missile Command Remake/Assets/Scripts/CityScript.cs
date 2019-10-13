@@ -4,26 +4,19 @@ using UnityEngine;
 
 public class CityScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool mainMenu;
 
     void OnTriggerEnter2D(Collider2D col)
     {
-
-        //If enemy missile hits city then the city should swap to a destroyed city sprite
-        //Maybe set a boolean to swap animation/image
-        if (col.tag == "enemyMissile")
+        if(!mainMenu)
         {
-            Destroy(this.gameObject);
+            //If enemy missile hits city then the city should swap to a destroyed city sprite
+            //Maybe set a boolean to swap animation/image
+            if (col.tag == "enemyMissile")
+            {
+                Destroy(this.gameObject, 1);
+            }
         }
+        
     }
 }

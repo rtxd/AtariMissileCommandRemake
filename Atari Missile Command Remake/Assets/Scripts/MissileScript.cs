@@ -22,7 +22,9 @@ public class MissileScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Set the position to the spawn position variable
         transform.position = spawnPos;
+        //Create a direction for it to shoot in
         direction = (target - transform.position).normalized;
     }
 
@@ -31,10 +33,13 @@ public class MissileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Lock the Z-axis (otherwise it causes a bug)
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
         rotateToFaceMouse();
-        //move the missile
         
+        //If the missile has not reached it's destination, keep going
+        //otherwise if it has then it should blow up
         if(Vector3.Distance(target, transform.position) <= 0.2)
         {
             Destroy(thisLocationMarker);
@@ -43,12 +48,10 @@ public class MissileScript : MonoBehaviour
         else
         {
             transform.position = transform.position + (direction * (speed * Time.deltaTime));
+            //Place a location marker where the player shot the missile
             if (!markerPlaced)
                 placeLocationMarker(target.x, target.y);
         }
-        
-        //transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        
     }
 
     /// <summary>
@@ -71,11 +74,14 @@ public class MissileScript : MonoBehaviour
         explosionAnim.GetComponent<ExplosionScript>().explosionTime = explosionTime;
         explosionAnim.GetComponent<ExplosionScript>().spawnPos = transform.position;
         Instantiate(explosionAnim, new Vector3(0,0,0), Quaternion.identity);
-        
-        
         Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// Place a location marker at the spot the player shot at
+    /// </summary>
+    /// <param name="targetX"></param>
+    /// <param name="targetY"></param>
     void placeLocationMarker(float targetX, float targetY)
     {
         thisLocationMarker = Instantiate(locationMarker, new Vector3(targetX, targetY, 0), Quaternion.identity);

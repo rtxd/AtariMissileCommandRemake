@@ -15,9 +15,4 @@ public class ExplosionScript : MonoBehaviour
         Destroy(gameObject, explosionTime);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
