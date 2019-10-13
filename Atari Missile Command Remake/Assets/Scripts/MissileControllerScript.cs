@@ -22,6 +22,7 @@ public class MissileControllerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Sets game up with initial 10 bullets per location
         spawnBullets();
     }
 
@@ -31,13 +32,15 @@ public class MissileControllerScript : MonoBehaviour
         //When player presses fire button, shoot a missile at their mouse location
         if (Input.GetKeyDown(fireButton))
         {
-            
 
+            //Depending on which location this missile controller is in dictates 
+            //where the missile should fire from and which list we are modifying
             if (controllerLocation == "center")
             {
                 if(ammoCenter.Count > 0)
                 {
                     fire();
+                    //Remove the bullet from the list then destroy it
                     var bulletToRemove = ammoCenter.Count-1;
                     Destroy(ammoCenter[bulletToRemove]);
                     ammoCenter.Remove(ammoCenter[bulletToRemove]);
@@ -75,6 +78,9 @@ public class MissileControllerScript : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Shoot the missile at players cursor location
+    /// </summary>
     void fire()
     {
         missile.GetComponent<MissileScript>().spawnPos = spawnPos;
@@ -83,6 +89,9 @@ public class MissileControllerScript : MonoBehaviour
         Instantiate(missile);
     }
 
+    /// <summary>
+    /// Resets ammunitions
+    /// </summary>
     public void Reset()
     {
         for (int i = 0; i < ammoCenter.Count; i++)
@@ -103,6 +112,9 @@ public class MissileControllerScript : MonoBehaviour
         spawnBullets();
     }
 
+    /// <summary>
+    /// Spawns ammunitions
+    /// </summary>
     void spawnBullets()
     {
         //Create a new list of bullets

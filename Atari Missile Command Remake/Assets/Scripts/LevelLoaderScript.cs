@@ -7,18 +7,13 @@ public class LevelLoaderScript : MonoBehaviour
 {
 
     public string levelType;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// When the player shoots a missile at the level, it should load that level
+    /// I wasn't able to get around to making the second level (the custom level) 
+    /// so it was disabled in the main menu screen
+    /// </summary>
+    /// <param name="col"></param>
     void OnTriggerEnter2D(Collider2D col)
     {
 

@@ -13,15 +13,8 @@ public class BulletScript : MonoBehaviour
         transform.position = spawnPos;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void destroyBullet()
     {
-        Debug.Log("DESTROY BULLET");
         Destroy(this.gameObject);
     }
 }

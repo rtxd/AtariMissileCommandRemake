@@ -9,6 +9,7 @@ public class EnemyMissileScript : MonoBehaviour
     Vector2 startPosition;
     //Change this to dictate speed missile fires at
     float timeToReachTarget;
+    //The time it takes for the explosion animation to play out
     public float explosionTime;
     public Transform explosionPos;
     public AudioClip explosionAudio;
@@ -18,7 +19,6 @@ public class EnemyMissileScript : MonoBehaviour
     public bool mainMenu;
     Vector3 direction;
 
-    // Start is called before the first frame update
     void Start()
     {
         direction = (target - transform.position).normalized;
@@ -44,40 +44,26 @@ public class EnemyMissileScript : MonoBehaviour
         }
     }
 
-    //Move
+    /// <summary>
+    /// Move the missile
+    /// </summary>
     void move()
     {
-        //if(!mainMenu)
-        //{
-            //Time fraction for lerp
-            t += Time.deltaTime / timeToReachTarget;
-            //Shoot missile
-            transform.position = Vector2.Lerp(startPosition, target, t);
-        //}
-        //else
-        //{
-        //    transform.position = transform.position + (direction * (2 * Time.deltaTime));
-        //}
-        
+        //Time fraction for lerp
+        t += Time.deltaTime / timeToReachTarget;
+        //Shoot missile
+        transform.position = Vector2.Lerp(startPosition, target, t);
     }
 
-    //Rotate sprite so it's facing the direction it's aiming
+    /// <summary>
+    /// Rotate sprite so it's facing the direction it's aiming
+    /// </summary>
     void rotate()
     {
-        //if(!mainMenu)
-        //{
             Vector3 vectorToTarget = target - transform.position;
             float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90;
             Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, q, 1);
-        //}
-        //else
-        //{
-        //    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-        //    Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        //    transform.rotation = Quaternion.Slerp(transform.rotation, q, 1);
-        //}
-        
     }
 
     /// <summary>
@@ -97,6 +83,10 @@ public class EnemyMissileScript : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// If the missile collides with an explosion it should blow up
+    /// </summary>
+    /// <param name="col"></param>
     void OnTriggerEnter2D(Collider2D col)
     {
         //When an enemy missile hits an explosion it should explode

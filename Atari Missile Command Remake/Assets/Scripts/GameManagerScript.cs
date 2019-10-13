@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
-
+    //Missile controllers, these control how much ammo is left
     GameObject MissileControllerRight;
     GameObject MissileControllerLeft;
     GameObject MissileControllerCenter;
+
     public GameObject EnemyMissile;
     public GameObject City;
+
     public GameObject YouWinSprite;
     public GameObject GameOverSprite;
     public GameObject WaveOneSprite;
@@ -19,24 +21,31 @@ public class GameManagerScript : MonoBehaviour
     public GameObject WaveThreeSprite;
     public Text ScoreUI;
 
+    //Determine if mainMenu rules apply... we do this so the main
+    //menu screen looks like the game, but doesn't actually play
+    public bool mainMenu;
 
+    //Audio
     public AudioClip GameOverAudio;
     public AudioClip BackgroundMusic;
     public AudioClip GameBootupAudio;
     public AudioClip WaveOneAudio;
     public AudioClip WaveTwoAudio;
     public AudioClip WaveThreeAudio;
-
     public AudioClip YouWinAudio;
     public AudioClip GameWinAudio;
 
+    //Volume controls
     [SerializeField]
     float musicVolume = 0;
     [SerializeField]
     float voiceVolume = 0;
-    public bool mainMenu;
+    
+    //City controls
     public Vector3[] citySpawnPoints;
     List<GameObject> Cities;
+
+    //Game states
     bool gameOver = false;
     bool gameWon = false;
     int score = 0;
@@ -46,7 +55,7 @@ public class GameManagerScript : MonoBehaviour
     /// </summary>
     void Start()
     {
-
+        //If it's not the main menu then don't display the score
         if(!mainMenu)
         {
             ScoreUI = GameObject.Find("Text").GetComponent<Text>();
@@ -55,12 +64,16 @@ public class GameManagerScript : MonoBehaviour
         MissileControllerRight = GameObject.Find("MissileControllerRight");
         MissileControllerLeft = GameObject.Find("MissileControllerLeft");
         MissileControllerCenter = GameObject.Find("MissileControllerCenter");
-        spawnCities();
+
         //Setup the city
+        spawnCities();
+
+        //If it's not the main menu then start the game, starts with wave one
         if(!mainMenu)
             StartCoroutine(StartWaveOne());
         else
         {
+            //if it is menu then just spawn a wave that doesn't do anything
             spawnWave();
         }
         //Play background music
@@ -71,10 +84,11 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            spawnWave();
+        //This is here in case you need to cheat for testing purposes
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //    spawnWave();
 
-        //foreach(GameObject city in Cities.ToList())
+        //Cycle through the cities list and remove any that have been destroyed
         for(int i = 0; i < (Cities.Count); i++)
         {
             if(Cities[i] == null)
@@ -83,29 +97,36 @@ public class GameManagerScript : MonoBehaviour
             }
         }
 
+        //If you have no cities left then end the game
         if(gameOver == false)
         {
             if (Cities.Count == 0)
             {
-                GameOver();
+                StartCoroutine(GameOver());
                 gameOver = true;
             }
         }
 
+        //Check if you win game
         if (gameWon == true)
         {
             StartCoroutine(winGame());
             gameWon = false;
         }
 
+        //Small cheat for testing purposes
         if (Input.GetKeyDown(KeyCode.R))
         {
             Reset();
         }
 
+        //Update the score
         ScoreUI.text = "Your score: " + score;
     }
 
+    /// <summary>
+    /// Initiate first wave
+    /// </summary>
     IEnumerator StartWaveOne()
     {
         AudioSource.PlayClipAtPoint(WaveOneAudio, new Vector3(0, 0, -18), voiceVolume);
@@ -120,6 +141,9 @@ public class GameManagerScript : MonoBehaviour
         StartCoroutine(StartWaveTwo());
     }
 
+    /// <summary>
+    /// Start second wave
+    /// </summary>
     IEnumerator StartWaveTwo()
     {
         Reset();
@@ -139,6 +163,9 @@ public class GameManagerScript : MonoBehaviour
         StartCoroutine(StartWaveThree());
     }
 
+    /// <summary>
+    /// Start wave three
+    /// </summary>
     IEnumerator StartWaveThree()
     {
         Reset();
@@ -193,20 +220,27 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    void GameOver()
+    IEnumerator GameOver()
     {
         Instantiate(GameOverSprite);
         AudioSource.PlayClipAtPoint(GameOverAudio, new Vector3(0, 0, -18), 1f);
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     void Reset()
     {
+        //Reset all ammunition
         MissileControllerRight.GetComponent<MissileControllerScript>().Reset();
         MissileControllerLeft.GetComponent<MissileControllerScript>().Reset();
         MissileControllerCenter.GetComponent<MissileControllerScript>().Reset();
+        //Reset cities
         ResetCities();
     }
 
+    /// <summary>
+    /// Restores all cities back to original state
+    /// </summary>
     void ResetCities()
     {
         for (int i = 0; i < Cities.Count; i++)
@@ -217,6 +251,10 @@ public class GameManagerScript : MonoBehaviour
         spawnCities();
     }
 
+    /// <summary>
+    /// Wins game, goes to main menu after 10 seconds
+    /// </summary>
+    /// <returns></returns>
     IEnumerator winGame()
     {
         var youWinSprite = Instantiate(YouWinSprite);
@@ -227,6 +265,9 @@ public class GameManagerScript : MonoBehaviour
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
+    /// <summary>
+    /// Calculates score
+    /// </summary>
     void calculateScore()
     {
         for(int i = 0; i < Cities.Count; i++)
