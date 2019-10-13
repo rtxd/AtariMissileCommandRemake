@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionScript : MonoBehaviour
+public class BulletScript : MonoBehaviour
 {
-    public Vector2 spawnPos;
-    public float explosionTime;
+
+    public Vector3 spawnPos;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Set spawn position
         transform.position = spawnPos;
-        //Destroy this explosion after a certain amount of time
-        Destroy(gameObject, explosionTime);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void destroyBullet()
+    {
+        Debug.Log("DESTROY BULLET");
+        Destroy(this.gameObject);
     }
 }

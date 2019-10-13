@@ -3,7 +3,12 @@ guid: 76a5839ecab7ab64189e484b8bbf084a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - explosionPos: {instanceID: 0}
+  - explosionAudio: {instanceID: 0}
+  - explosionAnim: {instanceID: 0}
+  - gameManager: {fileID: 4270132852569330385, guid: ad86237d7f854674eadd43e85c59780b,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
