@@ -7,19 +7,50 @@ public class GameManagerScript : MonoBehaviour
 
     public GameObject EnemyMissile;
     public GameObject City;
+    public GameObject GameOverSprite;
+    public GameObject WaveOneSprite;
+    public GameObject WaveTwoSprite;
+    public GameObject WaveThreeSprite;
+    public AudioClip GameOverAudio;
+    public AudioClip BackgroundMusic;
+    public AudioClip GameBootupAudio;
+    public AudioClip WaveOneAudio;
+    public AudioClip WaveTwoAudio;
+    public AudioClip WaveThreeAudio;
+
+    public float musicVolume;
     public Vector3[] citySpawnPoints;
     List<GameObject> Cities;
+    bool gameOver = false;
+    
+    
+    void StartWaveOne()
+    {
+
+    }
+
+    void StartWaveTwo()
+    {
+
+    }
+
+    void StartWaveThree()
+    {
+
+    }
 
     /// <summary>
     /// Set up the game here
     /// </summary>
     void Start()
     {
+        
         //Setup the city
         spawnCities();
         spawnWave();
-        
-
+        //Play background music
+        AudioSource.PlayClipAtPoint(BackgroundMusic, new Vector3(0, 0, -18), musicVolume);
+        AudioSource.PlayClipAtPoint(GameBootupAudio, new Vector3(0, 0, -18), musicVolume);
     }
 
     // Update is called once per frame
@@ -29,7 +60,7 @@ public class GameManagerScript : MonoBehaviour
             spawnWave();
 
         //foreach(GameObject city in Cities.ToList())
-        for(int i = 0; i < (Cities.Count-1); i++)
+        for(int i = 0; i < (Cities.Count); i++)
         {
             if(Cities[i] == null)
             {
@@ -37,8 +68,14 @@ public class GameManagerScript : MonoBehaviour
             }
         }
 
-        if (Cities.Count == 0)
-            GameOver();
+        if(gameOver == false)
+        {
+            if (Cities.Count == 0)
+            {
+                GameOver();
+                gameOver = true;
+            }
+        }
     }
 
     /// <summary>
@@ -68,5 +105,7 @@ public class GameManagerScript : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Game Over!!");
+        Instantiate(GameOverSprite);
+        AudioSource.PlayClipAtPoint(GameOverAudio, new Vector3(0, 0, -18), 1f);
     }
 }

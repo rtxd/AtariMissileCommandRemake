@@ -624,6 +624,16 @@ PrefabInstance:
       propertyPath: citySpawnPoints.Array.data[5].y
       value: -3.43
       objectReference: {fileID: 0}
+    - target: {fileID: 4270132852569330384, guid: ad86237d7f854674eadd43e85c59780b,
+        type: 3}
+      propertyPath: GameOverAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: a42f750de7b7bda49960d922a65e730d, type: 3}
+    - target: {fileID: 4270132852569330384, guid: ad86237d7f854674eadd43e85c59780b,
+        type: 3}
+      propertyPath: GameBootup
+      value: 
+      objectReference: {fileID: 8300000, guid: 614521c3c596abe4a9794c151f1a969f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad86237d7f854674eadd43e85c59780b, type: 3}
 --- !u!1001 &8557371094333366582
