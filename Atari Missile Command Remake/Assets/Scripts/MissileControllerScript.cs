@@ -22,36 +22,7 @@ public class MissileControllerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Create a new list of bullets
-        ammoLeft = new List<GameObject>();
-        ammoRight= new List<GameObject>();
-        ammoCenter = new List<GameObject>();
-        for (int i = 0; i < 10; i++)
-        {
-            if(controllerLocation == "left")
-            {
-                bullet.GetComponent<BulletScript>().spawnPos = bulletSpawnPointsLeft[i];
-                var newBullet = Instantiate(bullet);
-                ammoLeft.Add(newBullet);
-            }
-
-            if (controllerLocation == "right")
-            {
-                bullet.GetComponent<BulletScript>().spawnPos = bulletSpawnPointsRight[i];
-                var newBullet = Instantiate(bullet);
-                ammoRight.Add(newBullet);
-            }
-
-            if (controllerLocation == "center")
-            {
-                bullet.GetComponent<BulletScript>().spawnPos = bulletSpawnPointsCenter[i];
-                var newBullet = Instantiate(bullet);
-                ammoCenter.Add(newBullet);
-            }
-        }
-
-
-        
+        spawnBullets();
     }
 
     
@@ -100,6 +71,8 @@ public class MissileControllerScript : MonoBehaviour
                 
             }
         }
+
+        
     }
 
     void fire()
@@ -108,5 +81,56 @@ public class MissileControllerScript : MonoBehaviour
         missile.GetComponent<MissileScript>().target = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
         missile.GetComponent<MissileScript>().speed = speed;
         Instantiate(missile);
+    }
+
+    public void Reset()
+    {
+        for (int i = 0; i < ammoCenter.Count; i++)
+        {
+            Destroy(ammoCenter[i]);
+        }
+
+        for (int i = 0; i < ammoLeft.Count; i++)
+        {
+            Destroy(ammoLeft[i]);
+        }
+
+        for (int i = 0; i < ammoRight.Count; i++)
+        {
+            Destroy(ammoRight[i]);
+        }
+
+        spawnBullets();
+    }
+
+    void spawnBullets()
+    {
+        //Create a new list of bullets
+        ammoLeft = new List<GameObject>();
+        ammoRight = new List<GameObject>();
+        ammoCenter = new List<GameObject>();
+        for (int i = 0; i < 10; i++)
+        {
+            if (controllerLocation == "left")
+            {
+                bullet.GetComponent<BulletScript>().spawnPos = bulletSpawnPointsLeft[i];
+                var newBullet = Instantiate(bullet);
+                ammoLeft.Add(newBullet);
+            }
+
+            if (controllerLocation == "right")
+            {
+                bullet.GetComponent<BulletScript>().spawnPos = bulletSpawnPointsRight[i];
+                var newBullet = Instantiate(bullet);
+                ammoRight.Add(newBullet);
+            }
+
+            if (controllerLocation == "center")
+            {
+                bullet.GetComponent<BulletScript>().spawnPos = bulletSpawnPointsCenter[i];
+                var newBullet = Instantiate(bullet);
+                ammoCenter.Add(newBullet);
+            }
+        }
     }
 }

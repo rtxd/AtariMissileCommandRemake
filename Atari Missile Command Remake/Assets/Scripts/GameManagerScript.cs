@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameManagerScript : MonoBehaviour
 {
 
+    GameObject MissileControllerRight;
+    GameObject MissileControllerLeft;
+    GameObject MissileControllerCenter;
     public GameObject EnemyMissile;
     public GameObject City;
     public GameObject GameOverSprite;
@@ -19,41 +22,32 @@ public class GameManagerScript : MonoBehaviour
     public AudioClip WaveOneAudio;
     public AudioClip WaveTwoAudio;
     public AudioClip WaveThreeAudio;
-    
 
-    public float musicVolume;
+    [SerializeField]
+    float musicVolume = 0;
+    [SerializeField]
+    float voiceVolume = 0;
     public Vector3[] citySpawnPoints;
     List<GameObject> Cities;
     bool gameOver = false;
     
-    
-    void StartWaveOne()
-    {
-
-    }
-
-    void StartWaveTwo()
-    {
-
-    }
-
-    void StartWaveThree()
-    {
-
-    }
 
     /// <summary>
     /// Set up the game here
     /// </summary>
     void Start()
     {
-        
-        //Setup the city
+        MissileControllerRight = GameObject.Find("MissileControllerRight");
+        MissileControllerLeft = GameObject.Find("MissileControllerLeft");
+        MissileControllerCenter = GameObject.Find("MissileControllerCenter");
         spawnCities();
-        spawnWave();
+        //Setup the city
+        StartCoroutine(StartWaveOne());
+        //Invoke("StartWaveTwo", 5);
+        //Invoke("StartWaveThree", 5);
         //Play background music
         AudioSource.PlayClipAtPoint(BackgroundMusic, new Vector3(0, 0, -18), musicVolume);
-        AudioSource.PlayClipAtPoint(GameBootupAudio, new Vector3(0, 0, -18), musicVolume);
+        
     }
 
     // Update is called once per frame
@@ -79,6 +73,50 @@ public class GameManagerScript : MonoBehaviour
                 gameOver = true;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reset();
+        }
+    }
+
+    IEnumerator StartWaveOne()
+    {
+        AudioSource.PlayClipAtPoint(WaveOneAudio, new Vector3(0, 0, -18), voiceVolume);
+        var waveOneSprite = Instantiate(WaveOneSprite);
+        yield return new WaitForSeconds(2);
+        Destroy(waveOneSprite);
+        spawnWave();
+        yield return new WaitForSeconds(5);
+        spawnWave();
+        yield return new WaitForSeconds(13);
+        StartCoroutine(StartWaveTwo());
+    }
+
+    IEnumerator StartWaveTwo()
+    {
+        AudioSource.PlayClipAtPoint(WaveTwoAudio, new Vector3(0, 0, -18), voiceVolume);
+        var waveTwoSprite = Instantiate(WaveTwoSprite);
+        yield return new WaitForSeconds(2);
+        Destroy(waveTwoSprite);
+        spawnWave();
+        spawnWave();
+        yield return new WaitForSeconds(8);
+        spawnWave();
+        spawnWave();
+        yield return new WaitForSeconds(5);
+        spawnWave();
+        yield return new WaitForSeconds(10);
+        StartCoroutine(StartWaveTwo());
+    }
+
+    IEnumerator StartWaveThree()
+    {
+        AudioSource.PlayClipAtPoint(WaveThreeAudio, new Vector3(0, 0, -18), voiceVolume);
+        var waveThreeSprite = Instantiate(WaveThreeSprite);
+        yield return new WaitForSeconds(2);
+        Destroy(waveThreeSprite);
+        spawnWave();
     }
 
     /// <summary>
@@ -117,8 +155,25 @@ public class GameManagerScript : MonoBehaviour
 
     void GameOver()
     {
-        Debug.Log("Game Over!!");
         Instantiate(GameOverSprite);
         AudioSource.PlayClipAtPoint(GameOverAudio, new Vector3(0, 0, -18), 1f);
+    }
+
+    void Reset()
+    {
+        MissileControllerRight.GetComponent<MissileControllerScript>().Reset();
+        MissileControllerLeft.GetComponent<MissileControllerScript>().Reset();
+        MissileControllerCenter.GetComponent<MissileControllerScript>().Reset();
+        ResetCities();
+    }
+
+    void ResetCities()
+    {
+        for (int i = 0; i < Cities.Count; i++)
+        {
+            Destroy(Cities[i]);
+        }
+
+        spawnCities();
     }
 }
