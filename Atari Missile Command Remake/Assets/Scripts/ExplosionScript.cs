@@ -9,12 +9,15 @@ public class ExplosionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Set spawn position
         transform.position = spawnPos;
+        //Destroy this explosion after a certain amount of time
+        Destroy(gameObject, explosionTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, explosionTime);
+        
     }
 }
