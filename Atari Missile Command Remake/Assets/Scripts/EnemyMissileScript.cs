@@ -13,15 +13,18 @@ public class EnemyMissileScript : MonoBehaviour
     public Transform explosionPos;
     public AudioClip explosionAudio;
     public GameObject explosionAnim;
+    public GameObject gameManager;
     float t;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Choose a random direction to aim at the platform
-        target = new Vector2(Random.Range(-5.0f, 5.0f), -6.0f);
+        //Choose a random city to target
+        var selectedCity = Random.Range(0, 6);
+        target = gameManager.GetComponent<GameManagerScript>().citySpawnPoints[selectedCity];
         //Set the start position to the objects current position
         startPosition = transform.position;
+        //Set a random speed
         timeToReachTarget = Random.Range(8, 16);
     }
 
@@ -30,6 +33,11 @@ public class EnemyMissileScript : MonoBehaviour
     {
         move();
         rotate();
+        //When the missile hits the city explode
+        if (Vector3.Distance(target, transform.position) <= 0.2)
+        {
+            explode();
+        }
     }
 
     //Move
@@ -55,9 +63,12 @@ public class EnemyMissileScript : MonoBehaviour
     /// </summary>
     void explode()
     {
+        //Play explosion sound
         AudioSource.PlayClipAtPoint(explosionAudio, new Vector2(0, 0));
+        //Setup explosion variables
         explosionAnim.GetComponent<ExplosionScript>().explosionTime = explosionTime;
         explosionAnim.GetComponent<ExplosionScript>().spawnPos = transform.position;
+        //Create explosion
         Instantiate(explosionAnim, new Vector2(0, 0), Quaternion.identity);
 
 
@@ -66,6 +77,7 @@ public class EnemyMissileScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        //When an enemy missile hits an explosion it should explode
         if(col.tag == "explosion")
         {
             explode();
