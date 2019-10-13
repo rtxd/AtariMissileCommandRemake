@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4270132852569330385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4270132852569330387}
+  - component: {fileID: 4270132852569330384}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4270132852569330387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4270132852569330385}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.2556183, y: 0.22397155, z: 1.8691406}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4270132852569330384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4270132852569330385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d881d28f467b246b43914423918a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyMissile: {fileID: 2746279526681669714, guid: b080460625da3d241a5c5c376fb559ef,
+    type: 3}
+  City: {fileID: 134791270591254889, guid: 11ac45aa75144934291e2c7ff72677d1, type: 3}
+  citySpawnPoints:
+  - {x: -3.88, y: -3.43, z: 0}
+  - {x: -2.88, y: -3.52, z: 0}
+  - {x: -1.88, y: -3.34, z: 0}
+  - {x: 2, y: -3.393, z: 0}
+  - {x: 3, y: -3.59, z: 0}
+  - {x: 4, y: -3.48, z: 0}
