@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class GameManagerScript : MonoBehaviour
     public GameObject WaveOneSprite;
     public GameObject WaveTwoSprite;
     public GameObject WaveThreeSprite;
+    public Text ScoreUI;
 
-    public bool mainMenu;
 
     public AudioClip GameOverAudio;
     public AudioClip BackgroundMusic;
@@ -33,17 +34,24 @@ public class GameManagerScript : MonoBehaviour
     float musicVolume = 0;
     [SerializeField]
     float voiceVolume = 0;
+    public bool mainMenu;
     public Vector3[] citySpawnPoints;
     List<GameObject> Cities;
     bool gameOver = false;
     bool gameWon = false;
-    
+    int score = 0;
 
     /// <summary>
     /// Set up the game here
     /// </summary>
     void Start()
     {
+
+        if(!mainMenu)
+        {
+            ScoreUI = GameObject.Find("Text").GetComponent<Text>();
+        }
+        
         MissileControllerRight = GameObject.Find("MissileControllerRight");
         MissileControllerLeft = GameObject.Find("MissileControllerLeft");
         MissileControllerCenter = GameObject.Find("MissileControllerCenter");
@@ -94,6 +102,8 @@ public class GameManagerScript : MonoBehaviour
         {
             Reset();
         }
+
+        ScoreUI.text = "Your score: " + score;
     }
 
     IEnumerator StartWaveOne()
@@ -106,6 +116,7 @@ public class GameManagerScript : MonoBehaviour
         yield return new WaitForSeconds(5);
         spawnWave();
         yield return new WaitForSeconds(13);
+        calculateScore();
         StartCoroutine(StartWaveTwo());
     }
 
@@ -124,6 +135,7 @@ public class GameManagerScript : MonoBehaviour
         yield return new WaitForSeconds(5);
         spawnWave();
         yield return new WaitForSeconds(13);
+        calculateScore();
         StartCoroutine(StartWaveThree());
     }
 
@@ -143,6 +155,7 @@ public class GameManagerScript : MonoBehaviour
         yield return new WaitForSeconds(5);
         spawnWave();
         yield return new WaitForSeconds(13);
+        calculateScore();
         gameWon = true;
     }
 
@@ -213,4 +226,25 @@ public class GameManagerScript : MonoBehaviour
         yield return new WaitForSeconds(10);
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
+
+    void calculateScore()
+    {
+        for(int i = 0; i < Cities.Count; i++)
+        {
+            score = score + 1000;
+        }
+        for (int i = 0; i < MissileControllerCenter.GetComponent<MissileControllerScript>().ammoCenter.Count; i++)
+        {
+            score = score + 200;
+        }
+        for (int i = 0; i < MissileControllerRight.GetComponent<MissileControllerScript>().ammoRight.Count; i++)
+        {
+            score = score + 200;
+        }
+        for (int i = 0; i < MissileControllerLeft.GetComponent<MissileControllerScript>().ammoLeft.Count; i++)
+        {
+            score = score + 200;
+        }
+    }
+
 }

@@ -8,9 +8,9 @@ public class MissileControllerScript : MonoBehaviour
     public Vector2 spawnPos;
     public float speed;
     public KeyCode fireButton;
-    List<GameObject> ammoRight;
-    List<GameObject> ammoCenter;
-    List<GameObject> ammoLeft;
+    public List<GameObject> ammoRight;
+    public List<GameObject> ammoCenter;
+    public List<GameObject> ammoLeft;
     public GameObject bullet;
     public Vector3[] bulletSpawnPointsLeft;
     public Vector3[] bulletSpawnPointsRight;

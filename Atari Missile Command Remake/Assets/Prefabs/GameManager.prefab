@@ -46,6 +46,8 @@ MonoBehaviour:
   EnemyMissile: {fileID: 2746279526681669714, guid: b080460625da3d241a5c5c376fb559ef,
     type: 3}
   City: {fileID: 134791270591254889, guid: 11ac45aa75144934291e2c7ff72677d1, type: 3}
+  YouWinSprite: {fileID: 7010167165739278074, guid: 9d8baf2773cef274e89be6740811044f,
+    type: 3}
   GameOverSprite: {fileID: 6916142232196332393, guid: bf86adcd6a49dc247b57df0b8a3172e2,
     type: 3}
   WaveOneSprite: {fileID: 6835618932183165620, guid: 93833e3ef10c5ca429798e41f011f248,
@@ -54,7 +56,7 @@ MonoBehaviour:
     type: 3}
   WaveThreeSprite: {fileID: 5459135551067925542, guid: 7e9e8379cecd4d74fbd43797272ea7dc,
     type: 3}
-  mainMenu: 0
+  ScoreUI: {fileID: 3455672062337061851, guid: a9015970eac00cd4f8b42938adce187f, type: 3}
   GameOverAudio: {fileID: 8300000, guid: a42f750de7b7bda49960d922a65e730d, type: 3}
   BackgroundMusic: {fileID: 8300000, guid: 6e7878e77c3c5fd429e702677e5911bb, type: 3}
   GameBootupAudio: {fileID: 8300000, guid: 614521c3c596abe4a9794c151f1a969f, type: 3}
@@ -65,6 +67,7 @@ MonoBehaviour:
   GameWinAudio: {fileID: 8300000, guid: df9713c16825d9242a9006cf10dff9ce, type: 3}
   musicVolume: 0.1
   voiceVolume: 1
+  mainMenu: 0
   citySpawnPoints:
   - {x: -3.88, y: -3.43, z: 0}
   - {x: -2.88, y: -3.52, z: 0}
